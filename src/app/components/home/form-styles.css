@@ -1,0 +1,43 @@
+form {
+  margin: 0px 15px;
+}
+
+input.form-control {
+  background-color: #636b7b;
+  color: #fff;
+  border: 1px solid #636b7b;
+}
+
+input.form-control:focus {
+  box-shadow: none;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #fd0000;
+}
+
+.btn,
+.btn-outline-primary,
+:disabled {
+  cursor: default;
+}
+
+button[type="submit"].btn {
+  border-radius: 40px;
+  background-color: #c29c35;
+  color: #fff;
+}
+
+label {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+label:not(.text-danger) {
+  color: #545d6a;
+  font-weight: 700;
+}
+
+label.text-danger {
+  text-transform: none;
+}

@@ -1,5 +1,8 @@
 body {
   margin: 0;
+
+  font-family: "Avenir Next", "Avenir", sans-serif;
+  background-color: #272425;
 }
 
 .body-wrapper {
