@@ -3,17 +3,17 @@
         <label>Nick</label>
         <input class="form-control" formControlName="Nick">
         <label class="text-danger"
-            *ngIf="registerForm.get('Nick').touched && registerForm.get('Nick').errors?.required">This
+            *ngIf="registerForm.get('Nick')?.touched && registerForm.get('Nick')?.errors?.required">This
             field is mandatory.</label>
     </div>
     <div class="form-group required">
         <label>Email</label>
         <input class="form-control" formControlName="Email">
         <label class="text-danger"
-            *ngIf="registerForm.get('Email').touched && registerForm.get('Email').errors?.email">Invalid email
+            *ngIf="registerForm.get('Email')?.touched && registerForm.get('Email')?.errors?.email">Invalid email
             address.</label>
         <label class="text-danger"
-            *ngIf="registerForm.get('Email').touched && registerForm.get('Email').errors?.required">This field
+            *ngIf="registerForm.get('Email')?.touched && registerForm.get('Email')?.errors?.required">This field
             is mandatory.</label>
     </div>
     <div formGroupName="Passwords">
@@ -21,20 +21,20 @@
             <label>Password</label>
             <input type="password" class="form-control" formControlName="Password">
             <label class="text-danger"
-                *ngIf="registerForm.get('Passwords.Password').touched && registerForm.get('Passwords.Password').errors?.required">This
+                *ngIf="registerForm.get('Passwords.Password')?.touched && registerForm.get('Passwords.Password')?.errors?.required">This
                 field is mandatory.</label>
             <label class="text-danger"
-                *ngIf="registerForm.get('Passwords.Password').touched && registerForm.get('Passwords.Password').errors?.minlength">Minimum
-                length is {{registerForm.get('Passwords.Password').errors?.minlength.requiredLength}}.</label>
+                *ngIf="registerForm.get('Passwords.Password')?.touched && registerForm.get('Passwords.Password')?.errors?.minlength">Minimum
+                length is {{registerForm.get('Passwords.Password')?.errors?.minlength.requiredLength}}.</label>
         </div>
         <div class="form-group required">
             <label>Confirm Password</label>
             <input type="password" class="form-control" formControlName="ConfirmPassword">
             <label class="text-danger"
-                *ngIf="registerForm.get('Passwords.ConfirmPassword').touched && registerForm.get('Passwords.ConfirmPassword').errors?.required">This
+                *ngIf="registerForm.get('Passwords.ConfirmPassword')?.touched && registerForm.get('Passwords.ConfirmPassword')?.errors?.required">This
                 field is mandatory.</label>
             <label class="text-danger"
-                *ngIf="registerForm.get('Passwords.ConfirmPassword').touched && registerForm.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm
+                *ngIf="registerForm.get('Passwords.ConfirmPassword')?.touched && registerForm.get('Passwords.ConfirmPassword')?.errors?.passwordMismatch">Confirm
                 Password does not match.</label>
         </div>
     </div>

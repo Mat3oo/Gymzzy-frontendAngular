@@ -13,7 +13,7 @@
         <label class="text-danger" *ngIf="Password.errors?.required && (Password.touched || Password.dirty)">This
             field is mandatory.</label>
         <label class="text-danger" *ngIf="Password.errors?.minlength && (Password.touched || Password.dirty)">Minimum
-            length is {{Password.errors.minlength.requiredLength}}</label>
+            length is {{Password.errors?.minlength.requiredLength}}</label>
     </div>
     <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">
