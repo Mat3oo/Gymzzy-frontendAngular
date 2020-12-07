@@ -1,0 +1,80 @@
+<div class="flexWrapper justify-content-md-start">
+    <div class="wrapped-shadowBox">
+        <form #detailsForm='ngForm' (ngSubmit)="onSubmit(detailsForm)">
+
+            <div class="form-group row"></div> <!-- additional top spacer -->
+
+            <div class="form-group row">
+                <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm">
+                    <input id="inputEmail" class="form-control" type="email" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputFirstName" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm">
+                    <input id="inputFirstName" class="form-control" ngModel name="Name">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputLastName" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm">
+                    <input id="inputLastName" class="form-control" ngModel name="LastName">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputGender" class="col-sm-3 col-form-label">Gender</label>
+                <div class="col-sm" id="inputGender">
+                    <div class="form-check form-check-inline">
+                        <input id="genderRadioNone" class="form-check-input" type="radio" ngModel name="Gender"
+                            value="none" checked>
+                        <label class="form-check-label" for="genderRadioNone">None</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input id="genderRadioM" class="form-check-input" type="radio" ngModel name="Gender" value="m">
+                        <label class="form-check-label" for="genderRadioM">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input id="genderRadioF" class="form-check-input" type="radio" ngModel name="Gender" value="f">
+                        <label class="form-check-label" for="genderRadioF">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputUsername" class="col-sm-3 col-form-label">Nick</label>
+                <div class="col-sm">
+                    <input class="form-control" id="inputUsername" ngModel name="Username" #Username="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputHeight" class="col-sm-3 col-form-label">Height</label>
+                <div class="col-sm">
+                    <input class="form-control" type="number" id="inputHeight" ngModel name="Height">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputWeight" class="col-sm-3 col-form-label">Weight</label>
+                <div class="col-sm">
+                    <input class="form-control" type="number" id="inputWeight" ngModel name="Weight">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputWeight" class="col-sm-3 col-form-label">Date of birth</label>
+                <div class="col-sm">
+                    <input class="form-control" type="date" id="inputWeight" ngModel name="Birthday">
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-end no-gutters">
+                <button type="submit" class="btn btn-primary" [disabled]="detailsForm.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

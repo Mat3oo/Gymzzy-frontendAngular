@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/home/login/login.component'
 import { RegistrationComponent } from './components/home/registration/registration.component'
 import { UserPanelComponent } from './components/user-panel/user-panel.component'
+import { UserProfileComponent } from './components/user-panel/user-profile/user-profile.component'
 
 const routes: Routes = [
   {
@@ -22,7 +23,13 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    component: UserPanelComponent
+    component: UserPanelComponent,
+    children: [
+      {
+        path: 'profile',
+        component: UserProfileComponent
+      }
+    ]
   }
 ]
 

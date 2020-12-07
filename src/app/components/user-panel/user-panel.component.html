@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand text-white"><strong>Gymzzy</strong></a>
+    <a class="navbar-brand"><strong>Gymzzy</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapsableContent"
         aria-controls="navbarCollapsableContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -7,7 +7,12 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapsableContent">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['profile']">Profile <span class="sr-only">(current)</span></a>
+            </li>
         </ul>
         <button class="btn btn-danger my-2 my-sm-0" (ngClick)="onLogout()">Logout</button>
     </div>
 </nav>
+
+<router-outlet></router-outlet>
