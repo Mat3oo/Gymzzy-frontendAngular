@@ -8,27 +8,7 @@ input.form-control {
   border: 1px solid #636b7b;
 }
 
-input.form-control:focus {
-  box-shadow: none;
-}
-
-input.ng-invalid.ng-touched {
-  border: 1px solid #fd0000;
-}
-
-.btn,
-.btn-outline-primary,
-:disabled {
-  cursor: default;
-}
-
-button[type="submit"].btn {
-  border-radius: 40px;
-  background-color: #c29c35;
-  color: #fff;
-}
-
-label {
+.descriptive-label {
   text-transform: uppercase;
   font-size: 0.8rem;
 }
@@ -36,8 +16,4 @@ label {
 label:not(.text-danger) {
   color: #545d6a;
   font-weight: 700;
-}
-
-label.text-danger {
-  text-transform: none;
 }
