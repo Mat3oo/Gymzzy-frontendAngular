@@ -9,8 +9,9 @@ import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/home/login/login.component'
 import { RegistrationComponent } from './components/home/registration/registration.component'
 import { UserPanelComponent } from './components/user-panel/user-panel.component'
-import { UserProfileComponent } from './components/user-panel/user-profile/user-profile.component';
+import { UserProfileComponent } from './components/user-panel/user-profile/user-profile.component'
 import { TrainingHistoryComponent } from './components/user-panel/training-history/training-history.component'
+import { AddTrainingComponent } from './components/user-panel/add-training/add-training.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TrainingHistoryComponent } from './components/user-panel/training-histo
     RegistrationComponent,
     UserPanelComponent,
     UserProfileComponent,
-    TrainingHistoryComponent
+    TrainingHistoryComponent,
+    AddTrainingComponent
   ],
   imports: [
     BrowserModule,
