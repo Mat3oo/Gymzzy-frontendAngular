@@ -10,3 +10,26 @@ tbody tr td {
 .manage-colum {
   width: 5%;
 }
+
+.fontawe-icon {
+  font-size: 1.3rem;
+}
+
+.fontawe-icon:hover {
+  font-size: 1.53rem;
+  cursor: pointer;
+}
+
+.fa-edit:hover {
+  color: #0069d9;
+}
+
+.fa-trash-alt:hover {
+  color: red;
+}
+
+.cell-justifier {
+  display: flex;
+  justify-content: space-around;
+  width: 70px;
+}
