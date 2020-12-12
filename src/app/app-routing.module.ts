@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
+
 import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/home/login/login.component'
 import { RegistrationComponent } from './components/home/registration/registration.component'
@@ -7,6 +8,8 @@ import { AddTrainingComponent } from './components/user-panel/add-training/add-t
 import { TrainingHistoryComponent } from './components/user-panel/training-history/training-history.component'
 import { UserPanelComponent } from './components/user-panel/user-panel.component'
 import { UserProfileComponent } from './components/user-panel/user-profile/user-profile.component'
+
+import { AuthGuardService } from './services/auth-guard.service'
 
 const routes: Routes = [
   {
@@ -26,6 +29,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserPanelComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: 'profile',
