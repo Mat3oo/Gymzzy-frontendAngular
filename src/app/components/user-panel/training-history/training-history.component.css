@@ -20,6 +20,14 @@ tbody tr td {
   cursor: pointer;
 }
 
+.fa-plus-circle{
+  padding: 8px;
+}
+
+.fa-plus-circle:hover {
+  color: #c29c35;
+}
+
 .fa-edit:hover {
   color: #0069d9;
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+
+import { ITrainingSimpleView } from 'src/app/models/ServerResponses/ITrainingSimpleView'
+import { TrainingsService } from 'src/app/services/trainings.service'
 
 @Component({
   selector: 'app-training-history',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./training-history.component.css']
 })
 export class TrainingHistoryComponent implements OnInit {
+  trainings: ITrainingSimpleView[] = []
 
-  constructor() { }
+  constructor (private _trainingService: TrainingsService) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
+    this._trainingService.getAll().subscribe(
+      respond => {
+        this.trainings = respond
+      }
+    )
   }
-
 }
