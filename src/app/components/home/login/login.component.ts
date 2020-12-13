@@ -2,6 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Router } from '@angular/router'
+
+import { ToastrService } from 'ngx-toastr'
+
 import { IServerErrorMessage } from 'src/app/models/ServerResponses/IServerErrorMessage'
 import { ITokens } from 'src/app/models/ServerResponses/ITokens'
 import { LoginService } from 'src/app/services/login.service'
@@ -20,7 +23,8 @@ import { LoginService } from 'src/app/services/login.service'
 export class LoginComponent implements OnInit {
   constructor (
     private _loginService: LoginService,
-    private _router: Router
+    private _router: Router,
+    private _toastrService: ToastrService
   ) {}
 
   ngOnInit (): void {
@@ -36,10 +40,10 @@ export class LoginComponent implements OnInit {
         (err: HttpErrorResponse) => {
           switch (err.status) {
             case 401:
-              console.log((err.error as IServerErrorMessage).userMessage)
+              this._toastrService.error((err.error as IServerErrorMessage).userMessage, 'Authentication failed')
               break
             default:
-              console.log('Something goes wrong. Try again later.')
+              this._toastrService.error('Something goes wrong. Try again later.')
           }
         }
       )
