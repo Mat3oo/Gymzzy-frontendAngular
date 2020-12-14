@@ -26,23 +26,30 @@ export class RegistrationService {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error of type ErrorEvent occurred: ', error.error.message)
+      return throwError(error)
     } else {
-      const errorCodes: RespondErrorCodes[] = []
       // The backend returned an unsuccessful response code.
-      if (error.status === 422) {
-        error.error.forEach((element: {code: string}) => {
-          switch (element.code) {
-            case 'DuplicateEmail':
-              errorCodes.push(RespondErrorCodes.DuplicatedEmail)
-              break
-            case 'DuplicateUserName':
-              errorCodes.push(RespondErrorCodes.DuplicatedNick)
-              break
-          }
-        })
-        return throwError(errorCodes)
+      const errorCodes: RespondErrorCodes[] = []
+      switch (error.status) {
+        case 422:
+          error.error.forEach((element: {code: string}) => {
+            switch (element.code) {
+              case RespondErrorCodes.DuplicatedEmail:
+                errorCodes.push(RespondErrorCodes.DuplicatedEmail)
+                break
+              case RespondErrorCodes.DuplicatedNick:
+                errorCodes.push(RespondErrorCodes.DuplicatedNick)
+                break
+              case RespondErrorCodes.InvalidUserName:
+                errorCodes.push(RespondErrorCodes.InvalidUserName)
+                break
+            }
+          })
+          return throwError(errorCodes)
+        default:
+          console.error(`Error mesage: ${error.message}`)
+          return throwError(error)
       }
     }
-    return throwError(error)
   }
 }

@@ -52,18 +52,28 @@ export class RegistrationComponent implements OnInit {
         this._toastr.success('New user created.', 'Registration successful.')
         this._router.navigate(['home', 'login'])
       },
-      (err: RespondErrorCodes[]) => {
-        this._toastr.clear()
-        err.forEach(element => {
-          switch (element) {
-            case RespondErrorCodes.DuplicatedEmail:
-              this._toastr.error(`Email: ${this.Email?.value} is already taken.`, 'Registration failed!')
-              break
-            case RespondErrorCodes.DuplicatedNick:
-              this._toastr.error(`Nick: ${this.Nick?.value} is already taken.`, 'Registration failed!')
-              break
-          }
-        })
+      (err: any) => {
+        if (Array.isArray(err)) {
+          this._toastr.clear();
+          (err as RespondErrorCodes[]).forEach(element => {
+            switch (element) {
+              case RespondErrorCodes.DuplicatedEmail:
+                this._toastr.error(`Email: ${this.Email?.value} is already taken.`, 'Registration failed!')
+                break
+              case RespondErrorCodes.DuplicatedNick:
+                this._toastr.error(`Nick: ${this.Nick?.value} is already taken.`, 'Registration failed!')
+                break
+              case RespondErrorCodes.InvalidUserName:
+                this._toastr.error('Nick is invalid, can only contain letters or digits.', 'Registration failed!')
+                break
+              default:
+                this._toastr.error('Unknown error, check inputs and try again.', 'Registration failed!')
+                break
+            }
+          })
+        } else {
+          this._toastr.error('Something goes wrong. Try again later.', 'Error')
+        }
       })
   }
 
