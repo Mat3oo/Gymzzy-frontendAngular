@@ -1,79 +1,82 @@
 <div class="flexWrapper justify-content-md-start">
     <div class="wrapped-shadowBox">
-        <form #detailsForm='ngForm' (ngSubmit)="onSubmit(detailsForm)">
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmit()">
 
             <div class="form-group row"></div> <!-- additional top spacer -->
 
             <div class="form-group row">
-                <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                <label for="inputEmail" class="col-sm-auto col-form-label">Email</label>
                 <div class="col-sm">
-                    <input id="inputEmail" class="form-control" type="email" readonly>
+                    <input id="inputEmail" class="form-control" type="email" formControlName="Email" email readonly>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputFirstName" class="col-sm-3 col-form-label">Name</label>
+                <label for="inputFirstName" class="col-sm-auto col-form-label">Name</label>
                 <div class="col-sm">
-                    <input id="inputFirstName" class="form-control" ngModel name="Name">
+                    <input id="inputFirstName" class="form-control" formControlName="Name">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputLastName" class="col-sm-3 col-form-label">Last Name</label>
+                <label for="inputLastName" class="col-sm-auto col-form-label">Last Name</label>
                 <div class="col-sm">
-                    <input id="inputLastName" class="form-control" ngModel name="LastName">
+                    <input id="inputLastName" class="form-control" formControlName="LastName">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputGender" class="col-sm-3 col-form-label">Gender</label>
+                <label for="inputGender" class="col-sm-auto col-form-label">Gender</label>
                 <div id="inputGender" class="col-sm">
                     <div class="form-check form-check-inline">
-                        <input id="genderRadioNone" class="form-check-input" type="radio" ngModel name="Gender"
+                        <input id="genderRadioNone" class="form-check-input" type="radio" formControlName="Gender"
                             value="none" checked>
                         <label class="form-check-label" for="genderRadioNone">None</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input id="genderRadioM" class="form-check-input" type="radio" ngModel name="Gender" value="m">
+                        <input id="genderRadioM" class="form-check-input" type="radio" formControlName="Gender"
+                            value="m">
                         <label class="form-check-label" for="genderRadioM">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input id="genderRadioF" class="form-check-input" type="radio" ngModel name="Gender" value="f">
+                        <input id="genderRadioF" class="form-check-input" type="radio" formControlName="Gender"
+                            value="f">
                         <label class="form-check-label" for="genderRadioF">Female</label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputUsername" class="col-sm-3 col-form-label">Nick</label>
+                <label for="inputUsername" class="col-sm-auto col-form-label">Nick</label>
                 <div class="col-sm">
-                    <input id="inputUsername" class="form-control" ngModel name="Username" #Username="ngModel">
+                    <input id="inputUsername" class="form-control" formControlName="UserName" required>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputHeight" class="col-sm-3 col-form-label">Height</label>
+                <label for="inputHeight" class="col-sm-auto col-form-label">Height (cm)</label>
                 <div class="col-sm">
-                    <input id="inputHeight" class="form-control" type="number" ngModel name="Height">
+                    <input id="inputHeight" class="form-control" type="number" step=0.1 #inputHeight formControlName="Height">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputWeight" class="col-sm-3 col-form-label">Body weight</label>
+                <label for="inputWeight" class="col-sm-auto col-form-label">Body weight (kg)</label>
                 <div class="col-sm">
-                    <input id="inputWeight" class="form-control" type="number" ngModel name="Weight">
+                    <input id="inputWeight" class="form-control" type="number" step="0.1" #inputWeight formControlName="Weight">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputBirthday" class="col-sm-3 col-form-label">Date of birth</label>
+                <label for="inputBirthday" class="col-sm-auto col-form-label">Date of birth</label>
                 <div class="col-sm">
-                    <input id="inputBirthday" class="form-control" type="date" ngModel name="Birthday">
+                    <input id="inputBirthday" class="form-control" type="date" formControlName="Birthday">
                 </div>
             </div>
 
             <div class="form-group row justify-content-end no-gutters">
-                <button type="submit" class="btn btn-primary" [disabled]="detailsForm.invalid">Save</button>
+                <button type="submit" class="btn btn-primary"
+                    [disabled]="!userDetailsForm.valid || !inputHeight.checkValidity() || !inputWeight.checkValidity()">Save</button>
             </div>
         </form>
     </div>
