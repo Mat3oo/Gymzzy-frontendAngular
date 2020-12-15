@@ -14,14 +14,14 @@
             <div class="form-group row">
                 <label for="inputFirstName" class="col-sm-auto col-form-label">Name</label>
                 <div class="col-sm">
-                    <input id="inputFirstName" class="form-control" formControlName="Name">
+                    <input id="inputFirstName" class="form-control" formControlName="Name" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="inputLastName" class="col-sm-auto col-form-label">Last Name</label>
                 <div class="col-sm">
-                    <input id="inputLastName" class="form-control" formControlName="LastName">
+                    <input id="inputLastName" class="form-control" formControlName="LastName" required>
                 </div>
             </div>
 
@@ -49,28 +49,30 @@
             <div class="form-group row">
                 <label for="inputUsername" class="col-sm-auto col-form-label">Nick</label>
                 <div class="col-sm">
-                    <input id="inputUsername" class="form-control" formControlName="UserName" required>
+                    <input id="inputUsername" class="form-control" formControlName="Nick" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="inputHeight" class="col-sm-auto col-form-label">Height (cm)</label>
                 <div class="col-sm">
-                    <input id="inputHeight" class="form-control" type="number" step=0.1 #inputHeight formControlName="Height">
+                    <input id="inputHeight" class="form-control" type="number" step=0.1 #inputHeight
+                        formControlName="Height" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="inputWeight" class="col-sm-auto col-form-label">Body weight (kg)</label>
                 <div class="col-sm">
-                    <input id="inputWeight" class="form-control" type="number" step="0.1" #inputWeight formControlName="Weight">
+                    <input id="inputWeight" class="form-control" type="number" step="0.1" #inputWeight
+                        formControlName="Weight" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="inputBirthday" class="col-sm-auto col-form-label">Date of birth</label>
                 <div class="col-sm">
-                    <input id="inputBirthday" class="form-control" type="date" formControlName="Birthday">
+                    <input id="inputBirthday" class="form-control" type="date" formControlName="Birthday" required>
                 </div>
             </div>
 
