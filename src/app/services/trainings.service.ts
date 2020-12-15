@@ -8,7 +8,7 @@ import { ITrainingSimpleView } from '../models/ServerResponses/ITrainingSimpleVi
   providedIn: 'root'
 })
 export class TrainingsService {
-  private _apiUrl = GlobalConstans.apiUrlSSL
+  private _apiUrl = GlobalConstans.apiUrlSSL + '/trainings'
 
   constructor (private _httpClient: HttpClient) { }
 
@@ -16,6 +16,13 @@ export class TrainingsService {
     const token = localStorage.getItem('accessToken')
     const headers = new HttpHeaders({ Authorization: 'Bearer ' + token })
 
-    return this._httpClient.get<ITrainingSimpleView[]>(this._apiUrl + '/trainings', { headers: headers })
+    return this._httpClient.get<ITrainingSimpleView[]>(this._apiUrl, { headers: headers })
+  }
+
+  public deleteTraining (id: string): Observable<any> {
+    const token = localStorage.getItem('accessToken')
+    const headers = new HttpHeaders({ Authorization: 'Bearer ' + token })
+
+    return this._httpClient.delete(this._apiUrl + `/${id}`, { headers: headers })
   }
 }

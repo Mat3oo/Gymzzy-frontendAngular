@@ -20,4 +20,14 @@ export class TrainingHistoryComponent implements OnInit {
       }
     )
   }
+
+  thrash (id: string): void {
+    this._trainingService.deleteTraining(id).subscribe(
+      success => {
+        this.trainings = this.trainings.filter(element => {
+          return element.id !== id
+        })
+      }
+    )
+  }
 }

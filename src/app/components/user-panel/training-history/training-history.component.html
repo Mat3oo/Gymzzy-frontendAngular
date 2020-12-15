@@ -11,7 +11,7 @@
             <tbody>
                 <tr *ngFor="let training of trainings; let index = index">
                     <th scope="row">
-                        <a href="#">{{index + 1}}</a>
+                        <span>{{index + 1}}</span>
                     </th>
                     <td>
                         <span>{{training.date | date:'y MMM d, H:mm:ss z' }}</span>
@@ -19,7 +19,7 @@
                     <td class="manage-colum">
                         <div class="cell-justifier">
                             <i class="fontawe-icon far fa-edit"></i>
-                            <i class="fontawe-icon far fa-trash-alt"></i>
+                            <i class="fontawe-icon far fa-trash-alt" (click)="thrash(training.id)"></i>
                         </div>
                     </td>
                 </tr>
