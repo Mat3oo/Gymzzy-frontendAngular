@@ -5,9 +5,9 @@ import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
-import { ILoginModel } from '../models/ILoginModel'
-import { ITokens } from '../models/ServerResponses/ITokens'
-import { IServerErrorMessage } from '../models/ServerResponses/IServerErrorMessage'
+import { IUserLoginDTO } from '../models/DTO/IUserLoginDTO'
+import { ITokenDTO } from '../models/DTO/ServerResponses/ITokenDTO'
+import { IErrorResposneBodyDTO } from '../models/DTO/ServerResponses/IErrorResposneBodyDTO'
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class LoginService {
 
   constructor (private _httpClient: HttpClient) { }
 
-  public loginUser (loginModel: ILoginModel): Observable<ITokens> {
-    return this._httpClient.post<ITokens>(this._apiUrl + '/user/login', loginModel)
+  public loginUser (loginModel: IUserLoginDTO): Observable<ITokenDTO> {
+    return this._httpClient.post<ITokenDTO>(this._apiUrl + '/user/login', loginModel)
       .pipe(
         catchError(this.handleError)
       )
@@ -30,7 +30,7 @@ export class LoginService {
       console.error('An error of type ErrorEvent occurred: ', error.error.message)
     } else {
       // The backend returned an unsuccessful response code.
-      const serverErrorResponse: IServerErrorMessage = error.error
+      const serverErrorResponse: IErrorResposneBodyDTO = error.error
       console.error(
         `Backend returned code ${error.status}, ` +
         `developer message was: ${serverErrorResponse.developerMessage}`)

@@ -6,36 +6,50 @@
 }
 
 .exercise-level {
-  padding-left: 5px;
   font-size: 1.9rem;
 }
 
 .series-level {
-  padding-left: 4px;
-  font-size: 1.5rem;
-}
-
-.fontawe-icon-exercise {
-  font-size: 1.9rem;
-}
-
-.fontawe-icon-exercise:hover {
-  font-size: 2rem;
-}
-
-.fontawe-icon-series {
   font-size: 1.4rem;
 }
 
-.fontawe-icon-series:hover {
+button.fontawe-icon {
+  border: none;
+  background: transparent;
+  color: white;
+  outline: none;
+}
+
+.fontawe-icon-exercise:hover:enabled {
+  font-size: 2rem;
+}
+
+.fontawe-icon-series:hover:enabled {
   font-size: 1.5rem;
 }
 
-.fontawe-icon:hover {
-  cursor: pointer;
+.fontawe-icon:hover:enabled {
   color: #c29c35;
 }
 
 .btn-block {
-    min-width: 200px;
+  min-width: 200px;
+}
+
+input.input-underlined {
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #636b7b;
+  box-shadow: none;
+  border-radius: 0;
+  text-align: center;
+}
+
+input.input-underlined.ng-touched:invalid {
+  border-bottom: 1px solid red;
+}
+
+.series-row {
+  align-items: flex-end;
 }

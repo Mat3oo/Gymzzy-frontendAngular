@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+
 import { GlobalConstans } from '../common/global-constans'
-import { ITrainingSimpleView } from '../models/ServerResponses/ITrainingSimpleView'
+import { ITraining } from '../models/ITraining'
+import { TrainingCreateDTO, TrainingCreateSeriesDTO } from '../models/DTO/TrainingCreateDTO'
+import { ITrainingSimpleViewDTO } from '../models/DTO/ServerResponses/ITrainingSimpleViewDTO'
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +15,28 @@ export class TrainingsService {
 
   constructor (private _httpClient: HttpClient) { }
 
-  public getAll (): Observable<ITrainingSimpleView[]> {
-    const token = localStorage.getItem('accessToken')
-    const headers = new HttpHeaders({ Authorization: 'Bearer ' + token })
+  public getAll (): Observable<ITrainingSimpleViewDTO[]> {
+    return this._httpClient.get<ITrainingSimpleViewDTO[]>(this._apiUrl, { headers: this.generateAuthorizationHeader() })
+  }
 
-    return this._httpClient.get<ITrainingSimpleView[]>(this._apiUrl, { headers: headers })
+  public addTrainig (trainingModel: ITraining) {
+    const training = new TrainingCreateDTO(new Date().toISOString())
+
+    trainingModel.Exercises?.forEach(elementExercise => {
+      elementExercise.Series?.forEach(elementSeries => {
+        training.Series?.push(new TrainingCreateSeriesDTO(elementSeries.Reps, elementSeries.Weight, elementExercise.Name))
+      })
+    })
+
+    return this._httpClient.post(this._apiUrl, training, { headers: this.generateAuthorizationHeader() })
   }
 
   public deleteTraining (id: string): Observable<any> {
-    const token = localStorage.getItem('accessToken')
-    const headers = new HttpHeaders({ Authorization: 'Bearer ' + token })
+    return this._httpClient.delete(this._apiUrl + `/${id}`, { headers: this.generateAuthorizationHeader() })
+  }
 
-    return this._httpClient.delete(this._apiUrl + `/${id}`, { headers: headers })
+  private generateAuthorizationHeader (): HttpHeaders {
+    const token = localStorage.getItem('accessToken')
+    return new HttpHeaders({ Authorization: 'Bearer ' + token })
   }
 }

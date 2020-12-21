@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 
-import { ITrainingSimpleView } from 'src/app/models/ServerResponses/ITrainingSimpleView'
+import { ITrainingSimpleViewDTO } from 'src/app/models/DTO/ServerResponses/ITrainingSimpleViewDTO'
 import { TrainingsService } from 'src/app/services/trainings.service'
 
 @Component({
@@ -9,7 +9,7 @@ import { TrainingsService } from 'src/app/services/trainings.service'
   styleUrls: ['./training-history.component.css']
 })
 export class TrainingHistoryComponent implements OnInit {
-  trainings: ITrainingSimpleView[] = []
+  trainings: ITrainingSimpleViewDTO[] = []
 
   constructor (private _trainingService: TrainingsService) { }
 

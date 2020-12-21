@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
 
 import { UserService } from 'src/app/services/user.service'
-import { IUserDetailsModel } from '../../../models/ServerResponses/IUserDetailsModel'
+import { IUserDetailsViewDTO } from '../../../models/DTO/ServerResponses/IUserDetailsViewDTO'
 import { RespondErrorCodes } from 'src/app/common/RespondErrorCodes'
 
 @Component({
@@ -29,7 +29,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit (): void {
     this._userService.getUserDetails().subscribe(
-      (res: IUserDetailsModel) => {
+      (res: IUserDetailsViewDTO) => {
         this.Email?.setValue(res.email)
         this.Name?.setValue(res.name)
         this.LastName?.setValue(res.lastName)

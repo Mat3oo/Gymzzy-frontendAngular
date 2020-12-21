@@ -5,8 +5,8 @@ import { Router } from '@angular/router'
 
 import { ToastrService } from 'ngx-toastr'
 
-import { IServerErrorMessage } from 'src/app/models/ServerResponses/IServerErrorMessage'
-import { ITokens } from 'src/app/models/ServerResponses/ITokens'
+import { IErrorResposneBodyDTO } from 'src/app/models/DTO/ServerResponses/IErrorResposneBodyDTO'
+import { ITokenDTO } from 'src/app/models/DTO/ServerResponses/ITokenDTO'
 import { LoginService } from 'src/app/services/login.service'
 
 @Component({
@@ -33,14 +33,14 @@ export class LoginComponent implements OnInit {
   onSubmit (form: NgForm): void {
     this._loginService.loginUser({ email: form.value.Email, password: form.value.Password })
       .subscribe(
-        (respone: ITokens) => {
+        (respone: ITokenDTO) => {
           localStorage.setItem('accessToken', respone.accessToken)
           this._router.navigate(['/user/addTraining'])
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
             case 401:
-              this._toastrService.error((err.error as IServerErrorMessage).userMessage, 'Authentication failed')
+              this._toastrService.error((err.error as IErrorResposneBodyDTO).userMessage, 'Authentication failed')
               break
             default:
               this._toastrService.error('Something goes wrong. Try again later.')

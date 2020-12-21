@@ -1,4 +1,4 @@
-export interface IUserDetailsModel {
+export interface IUserDetailsViewDTO {
     email: string
     name?: string
     lastName?: string

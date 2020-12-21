@@ -1,4 +1,4 @@
-export interface IUserDetailsUpdateModel {
+export interface IUserDetailsEditDTO {
     name: string
     lastName: string
     userName: string

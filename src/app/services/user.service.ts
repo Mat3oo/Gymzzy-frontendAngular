@@ -4,9 +4,9 @@ import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
-import { IUserDetailsModel } from '../models/ServerResponses/IUserDetailsModel'
+import { IUserDetailsViewDTO } from '../models/DTO/ServerResponses/IUserDetailsViewDTO'
 import { RespondErrorCodes } from '../common/RespondErrorCodes'
-import { IUserDetailsUpdateModel } from '../models/IUserDetailsUpdateModel'
+import { IUserDetailsEditDTO } from '../models/DTO/IUserDetailsEditDTO'
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class UserService {
 
   constructor (private _httpClient: HttpClient) { }
 
-  public getUserDetails (): Observable<IUserDetailsModel> {
-    return this._httpClient.get<IUserDetailsModel>(this._apiUrl, { headers: this._header })
+  public getUserDetails (): Observable<IUserDetailsViewDTO> {
+    return this._httpClient.get<IUserDetailsViewDTO>(this._apiUrl, { headers: this._header })
   }
 
-  public updateUserDetails (userDetails: IUserDetailsUpdateModel): Observable<any> {
+  public updateUserDetails (userDetails: IUserDetailsEditDTO): Observable<any> {
     return this._httpClient.put(this._apiUrl, userDetails, { headers: this._header })
       .pipe(
         catchError(this.handleError)
