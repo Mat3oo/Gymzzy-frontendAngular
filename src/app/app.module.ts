@@ -16,7 +16,6 @@ import { UserPanelComponent } from './components/user-panel/user-panel.component
 import { UserProfileComponent } from './components/user-panel/user-profile/user-profile.component'
 import { TrainingHistoryComponent } from './components/user-panel/training-history/training-history.component'
 import { AddTrainingComponent } from './components/user-panel/add-training/add-training.component'
-import { AuthService } from './services/auth.service'
 
 @NgModule({
   declarations: [
@@ -39,7 +38,7 @@ import { AuthService } from './services/auth.service'
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [AuthService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
