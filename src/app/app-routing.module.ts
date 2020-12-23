@@ -16,33 +16,19 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     children: [
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'register',
-        component: RegistrationComponent
-      }
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegistrationComponent }
     ]
   },
   {
     path: 'user',
     component: UserPanelComponent,
     canActivate: [AuthGuardService],
+    canActivateChild: [AuthGuardService],
     children: [
-      {
-        path: 'profile',
-        component: UserProfileComponent
-      },
-      {
-        path: 'history',
-        component: TrainingHistoryComponent
-      },
-      {
-        path: 'addTraining',
-        component: AddTrainingComponent
-      }
+      { path: 'profile', component: UserProfileComponent },
+      { path: 'history', component: TrainingHistoryComponent },
+      { path: 'addTraining', component: AddTrainingComponent },
     ]
   }
 ]
