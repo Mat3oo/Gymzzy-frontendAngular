@@ -8,7 +8,10 @@ import { TrainingsService } from 'src/app/services/trainings.service'
 @Component({
   selector: 'app-add-training',
   templateUrl: './add-training.component.html',
-  styleUrls: ['./add-training.component.css']
+  styleUrls: [
+    './add-training.component.css',
+    './../trainingForm.css'
+  ]
 })
 export class AddTrainingComponent implements OnInit {
   trainingForm = this._formBuilder.group({

@@ -16,6 +16,7 @@ import { UserPanelComponent } from './components/user-panel/user-panel.component
 import { UserProfileComponent } from './components/user-panel/user-profile/user-profile.component'
 import { TrainingHistoryComponent } from './components/user-panel/training-history/training-history.component'
 import { AddTrainingComponent } from './components/user-panel/add-training/add-training.component'
+import { EditTrainingComponent } from './components/user-panel/edit-training/edit-training.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AddTrainingComponent } from './components/user-panel/add-training/add-t
     UserPanelComponent,
     UserProfileComponent,
     TrainingHistoryComponent,
-    AddTrainingComponent
+    AddTrainingComponent,
+    EditTrainingComponent
   ],
   imports: [
     BrowserModule,

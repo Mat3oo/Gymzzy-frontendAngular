@@ -1,0 +1,55 @@
+.container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exercise-level {
+  font-size: 1.9rem;
+}
+
+.series-level {
+  font-size: 1.4rem;
+}
+
+button.fontawe-icon {
+  border: none;
+  background: transparent;
+  color: white;
+  outline: none;
+}
+
+.fontawe-icon-exercise:hover:enabled {
+  font-size: 2rem;
+}
+
+.fontawe-icon-series:hover:enabled {
+  font-size: 1.5rem;
+}
+
+.fontawe-icon:hover:enabled {
+  color: #c29c35;
+}
+
+.btn-block {
+  min-width: 200px;
+}
+
+input.input-underlined {
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #636b7b;
+  box-shadow: none;
+  border-radius: 0;
+  text-align: center;
+}
+
+input.input-underlined.ng-touched:invalid {
+  border-bottom: 1px solid red;
+}
+
+.series-row {
+  align-items: flex-end;
+}

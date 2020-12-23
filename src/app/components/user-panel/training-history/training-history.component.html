@@ -18,7 +18,7 @@
                     </td>
                     <td class="manage-colum">
                         <div class="cell-justifier">
-                            <i class="fontawe-icon far fa-edit"></i>
+                            <i class="fontawe-icon far fa-edit" [routerLink]="['/user', 'editTraining', training.id]"></i>
                             <i class="fontawe-icon far fa-trash-alt" (click)="thrash(training.id)"></i>
                         </div>
                     </td>

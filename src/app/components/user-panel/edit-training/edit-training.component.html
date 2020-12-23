@@ -1,0 +1,47 @@
+<div class="container">
+    <form class="container" [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+        <ng-container formArrayName="Exercises" *ngFor="let exercise of Exercises.controls; let exerciseIndex = index">
+            <ng-container [formGroupName]="exerciseIndex">
+                <div class="form-group">
+                    <div class="form-row">
+                        <input class="form-control input-underlined col" placeholder="Exercise name"
+                            formControlName="Name" required>
+                        <button class="fas fa-minus fontawe-icon series-level" type="button"
+                            (click)="removeExercise(exerciseIndex)"></button>
+                    </div>
+                </div>
+                <div class="form-row series-row"
+                    *ngFor="let series of getExerciseSeries(exerciseIndex).controls; let seriesIndex = index"
+                    formArrayName="Series">
+                    <span class="align-bottom">{{seriesIndex + 1}}.</span>
+                    <ng-container [formGroupName]="seriesIndex">
+                        <div class="col">
+                            <input class="form-control form-control-sm input-underlined" type="number" step="0.01" min="0"
+                                placeholder="Weight [kg]" formControlName="Weight" required>
+                        </div>
+                        <div class="col">
+                            <input class="form-control form-control-sm input-underlined" type="number" min="0"
+                                placeholder="Reps" formControlName="Reps" required>
+                        </div>
+                    </ng-container>
+                    <button class="fas fa-minus-circle fontawe-icon series-level" type="button"
+                        (click)="removeSeries(exerciseIndex, seriesIndex)"></button>
+                </div>
+                <div>
+                    <button class="fas fa-plus-circle fontawe-icon fontawe-icon-series series-level" type="button"
+                        (click)="addSeries(exerciseIndex)"></button>
+                    <span class="series-level">Series</span>
+                </div>
+            </ng-container>
+        </ng-container>
+        <div>
+            <button class="fas fa-plus-circle fontawe-icon fontawe-icon-exercise exercise-level" type="button"
+                (click)="addExercise()"></button>
+            <span class="exercise-level">Exercise</span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary btn-block"
+                [disabled]="trainingForm.invalid || Exercises.length < 1">Update</button>
+        </div>
+    </form>
+</div>
