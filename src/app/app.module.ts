@@ -17,6 +17,7 @@ import { UserProfileComponent } from './components/user-panel/user-profile/user-
 import { TrainingHistoryComponent } from './components/user-panel/training-history/training-history.component'
 import { AddTrainingComponent } from './components/user-panel/add-training/add-training.component'
 import { EditTrainingComponent } from './components/user-panel/edit-training/edit-training.component'
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EditTrainingComponent } from './components/user-panel/edit-training/edi
     UserProfileComponent,
     TrainingHistoryComponent,
     AddTrainingComponent,
-    EditTrainingComponent
+    EditTrainingComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
