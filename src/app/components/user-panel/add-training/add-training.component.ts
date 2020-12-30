@@ -4,6 +4,8 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
 
 import { TrainingsService } from 'src/app/services/trainings.service'
+import { OneRepMaxService } from 'src/app/services/one-rep-max.service'
+import { ISeries } from 'src/app/models/ITraining'
 
 @Component({
   selector: 'app-add-training',
@@ -18,9 +20,12 @@ export class AddTrainingComponent implements OnInit {
     Exercises: this._formBuilder.array([])
   })
 
+  oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula
+
   constructor (private _formBuilder: FormBuilder,
     private _trainingsService: TrainingsService,
-    private _toastrService: ToastrService) { }
+    private _toastrService: ToastrService,
+    private _oneRepMaxService: OneRepMaxService) { }
 
   ngOnInit (): void {
   }

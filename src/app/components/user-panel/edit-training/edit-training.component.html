@@ -3,7 +3,10 @@
         <ng-container formArrayName="Exercises" *ngFor="let exercise of Exercises.controls; let exerciseIndex = index">
             <ng-container [formGroupName]="exerciseIndex">
                 <div class="form-group">
-                    <div class="form-row">
+                    <div class="form-row align-items-center">
+                        <span class="badge badge-secondary">
+                            1RM: {{oneRM(exercise.get('Series')?.value) | number: '1.0-2'}}
+                        </span>
                         <input class="form-control input-underlined col" placeholder="Exercise name"
                             formControlName="Name" required>
                         <button class="fas fa-minus fontawe-icon series-level" type="button"
@@ -16,8 +19,8 @@
                     <span class="align-bottom">{{seriesIndex + 1}}.</span>
                     <ng-container [formGroupName]="seriesIndex">
                         <div class="col">
-                            <input class="form-control form-control-sm input-underlined" type="number" step="0.01" min="0"
-                                placeholder="Weight [kg]" formControlName="Weight" required>
+                            <input class="form-control form-control-sm input-underlined" type="number" step="0.01"
+                                min="0" placeholder="Weight [kg]" formControlName="Weight" required>
                         </div>
                         <div class="col">
                             <input class="form-control form-control-sm input-underlined" type="number" min="0"

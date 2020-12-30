@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core'
 import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
+
 import { ToastrService } from 'ngx-toastr'
+
 import { ITrainingViewDTO } from 'src/app/models/DTO/ServerResponses/ITrainingViewDTO'
 import { IExercise, ISeries, ITraining } from 'src/app/models/ITraining'
 
 import { TrainingsService } from 'src/app/services/trainings.service'
+import { OneRepMaxService } from 'src/app/services/one-rep-max.service'
 
 @Component({
   selector: 'app-edit-training',
@@ -23,10 +26,13 @@ export class EditTrainingComponent implements OnInit {
     Exercises: this._formBuilder.array([])
   })
 
+  oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula
+
   constructor (private _route: ActivatedRoute,
     private _trainingsService: TrainingsService,
     private _formBuilder: FormBuilder,
-    private _toastrService: ToastrService) {
+    private _toastrService: ToastrService,
+    private _oneRepMaxService: OneRepMaxService) {
     this._id = this._route.snapshot.paramMap.get('id') ? this._route.snapshot.paramMap.get('id')! : ''
   }
 
