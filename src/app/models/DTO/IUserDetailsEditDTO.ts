@@ -5,5 +5,5 @@ export interface IUserDetailsEditDTO {
     gender: string
     height: number
     weight: number
-    birthday: string
+    birthdate: string
 }

@@ -6,5 +6,5 @@ export interface IUserDetailsViewDTO {
     gender?: string
     height?: number
     weight?: number
-    birthday?: string
+    birthdate?: string
 }

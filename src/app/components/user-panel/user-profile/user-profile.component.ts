@@ -20,7 +20,7 @@ export class UserProfileComponent implements OnInit {
     Nick: ['', Validators.required],
     Height: ['', [Validators.pattern('^[0-9]+(\.[0-9]{1})?$'), Validators.required]],
     Weight: ['', [Validators.pattern('^[0-9]+(\.[0-9]{1})?$'), Validators.required]],
-    Birthday: ['', Validators.required]
+    Birthdate: ['', Validators.required]
   })
 
   constructor (private _formBuilder: FormBuilder,
@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit {
         this.Nick?.setValue(res.userName)
         this.Height?.setValue(res.height)
         this.Weight?.setValue(res.weight)
-        this.Birthday?.setValue(res.birthday?.split('T')[0])
+        this.Birthdate?.setValue(res.birthdate?.split('T')[0])
       }
     )
   }
@@ -50,7 +50,7 @@ export class UserProfileComponent implements OnInit {
       gender: this.Gender?.value === 'none' ? null : this.Gender?.value,
       height: this.Height?.value,
       weight: this.Weight?.value,
-      birthday: this.Birthday?.value
+      birthdate: this.Birthdate?.value
     }).subscribe(
       success => {
         this._toastrService.success('User details updated.', 'Update success')
@@ -85,5 +85,5 @@ export class UserProfileComponent implements OnInit {
   get Nick (): AbstractControl | null { return this.userDetailsForm.get('Nick') }
   get Height (): AbstractControl | null { return this.userDetailsForm.get('Height') }
   get Weight (): AbstractControl | null { return this.userDetailsForm.get('Weight') }
-  get Birthday (): AbstractControl | null { return this.userDetailsForm.get('Birthday') }
+  get Birthdate (): AbstractControl | null { return this.userDetailsForm.get('Birthdate') }
 }
