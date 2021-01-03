@@ -78,7 +78,7 @@
 
             <div class="form-group row justify-content-end no-gutters">
                 <button type="submit" class="btn btn-primary"
-                    [disabled]="!userDetailsForm.valid || !inputHeight.checkValidity() || !inputWeight.checkValidity()">Save</button>
+                    [disabled]="!userDetailsForm.valid || !inputHeight.checkValidity() || !inputWeight.checkValidity() || !userDetailsForm.dirty">Save</button>
             </div>
         </form>
     </div>
