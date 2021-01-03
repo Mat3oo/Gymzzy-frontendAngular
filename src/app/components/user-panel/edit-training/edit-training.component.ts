@@ -108,7 +108,8 @@ export class EditTrainingComponent implements OnInit {
     series.forEach(value => {
       seriesFormArray.push(this._formBuilder.group({
         Weight: [value.Weight, Validators.required],
-        Reps: [value.Reps, Validators.required]
+        Reps: [value.Reps, Validators.required],
+        Record: [value.Record]
       }))
     })
 
@@ -127,7 +128,7 @@ export class EditTrainingComponent implements OnInit {
 
       trainingModel.Exercises?.find(value => {
         return value.Name === element.exercise.name
-      })?.Series?.push({ Reps: element.reps, Weight: element.weight })
+      })?.Series?.push({ Reps: element.reps, Weight: element.weight, Record: element.record })
     })
 
     return trainingModel

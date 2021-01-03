@@ -1,6 +1,7 @@
 export interface ISeries{
     Reps: number
     Weight: number
+    Record: boolean
 }
 
 export interface IExercise{

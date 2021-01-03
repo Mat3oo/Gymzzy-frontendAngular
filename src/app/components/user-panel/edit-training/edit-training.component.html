@@ -16,7 +16,7 @@
                 <div class="form-row series-row"
                     *ngFor="let series of getExerciseSeries(exerciseIndex).controls; let seriesIndex = index"
                     formArrayName="Series">
-                    <span class="align-bottom">{{seriesIndex + 1}}.</span>
+                    <span class="align-bottom index-label">{{seriesIndex + 1}}.</span>
                     <ng-container [formGroupName]="seriesIndex">
                         <div class="col">
                             <input class="form-control form-control-sm input-underlined" type="number" step="0.01"
@@ -29,6 +29,7 @@
                     </ng-container>
                     <button class="fas fa-minus-circle fontawe-icon series-level" type="button"
                         (click)="removeSeries(exerciseIndex, seriesIndex)"></button>
+                    <span class="badge badge-warning" [ngStyle]="{visibility : series?.get('Record')?.value ? 'visible' : 'hidden'}">PR</span>
                 </div>
                 <div>
                     <button class="fas fa-plus-circle fontawe-icon fontawe-icon-series series-level" type="button"

@@ -7,6 +7,7 @@ export interface ITrainingViewSeriesDTO {
     id: string
     reps: number
     weight: number
+    record: boolean
     exercise: ITrainingViewExerciseDTO
 }
 
