@@ -26,7 +26,7 @@ export class EditTrainingComponent implements OnInit {
     Exercises: this._formBuilder.array([])
   })
 
-  oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula
+  oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula()
 
   constructor (private _route: ActivatedRoute,
     private _trainingsService: TrainingsService,
