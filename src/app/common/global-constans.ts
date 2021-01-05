@@ -1,3 +1,3 @@
 export class GlobalConstans {
-    public static readonly apiUrlSSL: string = 'https://localhost:44300/api';
+    public static readonly apiUrlSSL: string = 'https://gymzzywebapidemo.azurewebsites.net/api';
 }
