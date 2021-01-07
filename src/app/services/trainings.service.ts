@@ -8,6 +8,7 @@ import { TrainingCreateDTO, TrainingCreateSeriesDTO } from '../models/DTO/Traini
 import { ITrainingSimpleViewDTO } from '../models/DTO/ServerResponses/ITrainingSimpleViewDTO'
 import { ITrainingViewDTO } from '../models/DTO/ServerResponses/ITrainingViewDTO'
 import { TrainingEditDTO, TrainingEditSeriesDTO } from '../models/DTO/TrainingEditDTO'
+import { retry } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,16 @@ export class TrainingsService {
 
   public getTraining (id: string): Observable<ITrainingViewDTO> {
     return this._httpClient.get<ITrainingViewDTO>(this._apiUrl + `/${id}`, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public getAll (): Observable<ITrainingSimpleViewDTO[]> {
     return this._httpClient.get<ITrainingSimpleViewDTO[]>(this._apiUrl, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public addTrainig (trainingModel: ITraining) {
@@ -35,6 +42,9 @@ export class TrainingsService {
     })
 
     return this._httpClient.post(this._apiUrl, training, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public updateTraining (trainingModel: ITraining, id: string): Observable<any> {
@@ -47,10 +57,16 @@ export class TrainingsService {
     })
 
     return this._httpClient.put(this._apiUrl + `/${id}`, training, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public deleteTraining (id: string): Observable<any> {
     return this._httpClient.delete(this._apiUrl + `/${id}`, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   private generateAuthorizationHeader (): HttpHeaders {
