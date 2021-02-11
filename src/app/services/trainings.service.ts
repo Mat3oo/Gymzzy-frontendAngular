@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
-import { retry } from 'rxjs/operators'
+import { iif, Observable, of, throwError } from 'rxjs'
+import { concatMap, delay, retryWhen } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
 import { ITraining } from '../models/ITraining'
@@ -14,7 +14,9 @@ import { TrainingEditDTO, TrainingEditSeriesDTO } from '../models/DTO/TrainingEd
   providedIn: 'root'
 })
 export class TrainingsService {
-  private readonly _apiUrl : string = `${GlobalConstans.apiUrlSSL}/trainings`
+  private readonly _apiUrl: string = `${GlobalConstans.apiUrlSSL}/trainings`
+  private readonly _retryCount: number = GlobalConstans.retryCount;
+  private readonly _retryDelayMs: number = GlobalConstans.retryDelayMs;
 
   constructor (private readonly _httpClient: HttpClient) { }
 
@@ -22,7 +24,18 @@ export class TrainingsService {
     return this._httpClient
       .get<ITrainingViewDTO>(`${this._apiUrl}/${id}`, { headers: this.generateAuthorizationHeader() })
       .pipe(
-        retry(2)
+        retryWhen(
+          (errors) =>
+            errors.pipe(
+              concatMap(
+                (value: HttpErrorResponse, index: number) =>
+                  iif(
+                    () => (index > this._retryCount) || ((value.status < 500) || (value.status > 599)),
+                    throwError(value),
+                    of(value).pipe(delay(this._retryDelayMs)))
+              )
+            )
+        )
       )
   }
 
@@ -30,7 +43,18 @@ export class TrainingsService {
     return this._httpClient
       .get<ITrainingSimpleViewDTO[]>(this._apiUrl, { headers: this.generateAuthorizationHeader() })
       .pipe(
-        retry(2)
+        retryWhen(
+          (errors) =>
+            errors.pipe(
+              concatMap(
+                (value: HttpErrorResponse, index: number) =>
+                  iif(
+                    () => (index > this._retryCount) || ((value.status < 500) || (value.status > 599)),
+                    throwError(value),
+                    of(value).pipe(delay(this._retryDelayMs)))
+              )
+            )
+        )
       )
   }
 
@@ -46,7 +70,18 @@ export class TrainingsService {
     return this._httpClient
       .post(this._apiUrl, training, { headers: this.generateAuthorizationHeader() })
       .pipe(
-        retry(2)
+        retryWhen(
+          (errors) =>
+            errors.pipe(
+              concatMap(
+                (value: HttpErrorResponse, index: number) =>
+                  iif(
+                    () => (index > this._retryCount) || ((value.status < 500) || (value.status > 599)),
+                    throwError(value),
+                    of(value).pipe(delay(this._retryDelayMs)))
+              )
+            )
+        )
       )
   }
 
@@ -62,7 +97,18 @@ export class TrainingsService {
     return this._httpClient
       .put(`${this._apiUrl}/${id}`, training, { headers: this.generateAuthorizationHeader() })
       .pipe(
-        retry(2)
+        retryWhen(
+          (errors) =>
+            errors.pipe(
+              concatMap(
+                (value: HttpErrorResponse, index: number) =>
+                  iif(
+                    () => (index > this._retryCount) || ((value.status < 500) || (value.status > 599)),
+                    throwError(value),
+                    of(value).pipe(delay(this._retryDelayMs)))
+              )
+            )
+        )
       )
   }
 
@@ -70,7 +116,18 @@ export class TrainingsService {
     return this._httpClient
       .delete(`${this._apiUrl}/${id}`, { headers: this.generateAuthorizationHeader() })
       .pipe(
-        retry(2)
+        retryWhen(
+          (errors) =>
+            errors.pipe(
+              concatMap(
+                (value: HttpErrorResponse, index: number) =>
+                  iif(
+                    () => (index > this._retryCount) || ((value.status < 500) || (value.status > 599)),
+                    throwError(value),
+                    of(value).pipe(delay(this._retryDelayMs)))
+              )
+            )
+        )
       )
   }
 
