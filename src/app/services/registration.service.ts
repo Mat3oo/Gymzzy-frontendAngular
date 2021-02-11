@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable, throwError } from 'rxjs'
-import { catchError } from 'rxjs/operators'
+import { catchError, retry } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
 import { RespondErrorCodes } from '../common/RespondErrorCodes'
@@ -11,13 +11,15 @@ import { IUserRegistDTO } from '../models/DTO/IUserRegistDTO'
   providedIn: 'root'
 })
 export class RegistrationService {
-  private _apiUrl: string = GlobalConstans.apiUrlSSL;
+  private readonly _apiUrl: string = GlobalConstans.apiUrlSSL;
 
-  constructor (private _httpClient: HttpClient) { }
+  constructor (private readonly _httpClient: HttpClient) { }
 
   public registUser (registModel: IUserRegistDTO): Observable<any> {
-    return this._httpClient.post(this._apiUrl + '/user/regist', registModel)
+    return this._httpClient
+      .post(`${this._apiUrl}/user/regist`, registModel)
       .pipe(
+        retry(2),
         catchError(this.handleError)
       )
   }

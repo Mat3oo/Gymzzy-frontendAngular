@@ -11,10 +11,10 @@ import { TrainingsService } from 'src/app/services/trainings.service'
 export class TrainingHistoryComponent implements OnInit {
   trainings: ITrainingSimpleViewDTO[] = []
 
-  constructor (private _trainingService: TrainingsService) { }
+  constructor (private readonly _trainingService: TrainingsService) { }
 
   ngOnInit (): void {
-    this._trainingService.getAll().subscribe(
+    this._trainingService.getAllTrainings().subscribe(
       respond => {
         this.trainings = respond
       }

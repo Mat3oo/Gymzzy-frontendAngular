@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { retry } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
 import { ITraining } from '../models/ITraining'
@@ -13,16 +14,24 @@ import { TrainingEditDTO, TrainingEditSeriesDTO } from '../models/DTO/TrainingEd
   providedIn: 'root'
 })
 export class TrainingsService {
-  private _apiUrl = GlobalConstans.apiUrlSSL + '/trainings'
+  private readonly _apiUrl : string = `${GlobalConstans.apiUrlSSL}/trainings`
 
-  constructor (private _httpClient: HttpClient) { }
+  constructor (private readonly _httpClient: HttpClient) { }
 
   public getTraining (id: string): Observable<ITrainingViewDTO> {
-    return this._httpClient.get<ITrainingViewDTO>(this._apiUrl + `/${id}`, { headers: this.generateAuthorizationHeader() })
+    return this._httpClient
+      .get<ITrainingViewDTO>(`${this._apiUrl}/${id}`, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
-  public getAll (): Observable<ITrainingSimpleViewDTO[]> {
-    return this._httpClient.get<ITrainingSimpleViewDTO[]>(this._apiUrl, { headers: this.generateAuthorizationHeader() })
+  public getAllTrainings (): Observable<ITrainingSimpleViewDTO[]> {
+    return this._httpClient
+      .get<ITrainingSimpleViewDTO[]>(this._apiUrl, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public addTrainig (trainingModel: ITraining) {
@@ -34,7 +43,11 @@ export class TrainingsService {
       })
     })
 
-    return this._httpClient.post(this._apiUrl, training, { headers: this.generateAuthorizationHeader() })
+    return this._httpClient
+      .post(this._apiUrl, training, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public updateTraining (trainingModel: ITraining, id: string): Observable<any> {
@@ -46,11 +59,19 @@ export class TrainingsService {
       })
     })
 
-    return this._httpClient.put(this._apiUrl + `/${id}`, training, { headers: this.generateAuthorizationHeader() })
+    return this._httpClient
+      .put(`${this._apiUrl}/${id}`, training, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   public deleteTraining (id: string): Observable<any> {
-    return this._httpClient.delete(this._apiUrl + `/${id}`, { headers: this.generateAuthorizationHeader() })
+    return this._httpClient
+      .delete(`${this._apiUrl}/${id}`, { headers: this.generateAuthorizationHeader() })
+      .pipe(
+        retry(2)
+      )
   }
 
   private generateAuthorizationHeader (): HttpHeaders {

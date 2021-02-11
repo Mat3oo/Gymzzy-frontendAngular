@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
-import { catchError } from 'rxjs/operators'
+import { catchError, retry } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
 import { IUserLoginDTO } from '../models/DTO/IUserLoginDTO'
@@ -13,13 +13,15 @@ import { IErrorResposneBodyDTO } from '../models/DTO/ServerResponses/IErrorRespo
   providedIn: 'root'
 })
 export class LoginService {
-  private _apiUrl: string = GlobalConstans.apiUrlSSL;
+  private readonly _apiUrl: string = GlobalConstans.apiUrlSSL;
 
-  constructor (private _httpClient: HttpClient) { }
+  constructor (private readonly _httpClient: HttpClient) { }
 
   public loginUser (loginModel: IUserLoginDTO): Observable<ITokenDTO> {
-    return this._httpClient.post<ITokenDTO>(this._apiUrl + '/user/login', loginModel)
+    return this._httpClient
+      .post<ITokenDTO>(`${this._apiUrl}/user/login`, loginModel)
       .pipe(
+        retry(2),
         catchError(this.handleError)
       )
   }
