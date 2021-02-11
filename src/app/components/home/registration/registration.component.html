@@ -33,7 +33,12 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">
-            <button type="submit" class="btn btn-lg btn-block" [disabled]="!registerForm.valid">Sign Up</button>
+            <button type="submit" class="btn btn-lg btn-block"
+                [disabled]="!registerForm.valid || this.RegistrationInProgress">
+                <span *ngIf="this.RegistrationInProgress" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Sign Up
+            </button>
         </div>
     </div>
 </form>

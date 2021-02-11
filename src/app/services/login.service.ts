@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { Observable, throwError } from 'rxjs'
-import { catchError } from 'rxjs/operators'
+import { iif, Observable, of, throwError } from 'rxjs'
+import { catchError, concatMap, delay, retryWhen } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
 import { IUserLoginDTO } from '../models/DTO/IUserLoginDTO'
@@ -13,13 +13,28 @@ import { IErrorResposneBodyDTO } from '../models/DTO/ServerResponses/IErrorRespo
   providedIn: 'root'
 })
 export class LoginService {
-  private _apiUrl: string = GlobalConstans.apiUrlSSL;
+  private readonly _apiUrl: string = GlobalConstans.apiUrlSSL;
+  private readonly _retryCount: number = GlobalConstans.retryCount;
+  private readonly _retryDelayMs: number = GlobalConstans.retryDelayMs;
 
-  constructor (private _httpClient: HttpClient) { }
+  constructor (private readonly _httpClient: HttpClient) { }
 
   public loginUser (loginModel: IUserLoginDTO): Observable<ITokenDTO> {
-    return this._httpClient.post<ITokenDTO>(this._apiUrl + '/user/login', loginModel)
+    return this._httpClient
+      .post<ITokenDTO>(`${this._apiUrl}/user/login`, loginModel)
       .pipe(
+        retryWhen(
+          (errors) =>
+            errors.pipe(
+              concatMap(
+                (value: HttpErrorResponse, index: number) =>
+                  iif(
+                    () => (index > this._retryCount) || ((value.status < 500) || (value.status > 599)),
+                    throwError(value),
+                    of(value).pipe(delay(this._retryDelayMs)))
+              )
+            )
+        ),
         catchError(this.handleError)
       )
   }

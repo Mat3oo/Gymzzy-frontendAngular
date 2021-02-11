@@ -17,7 +17,11 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">
-            <button type="submit" class="btn btn-block btn-lg" [disabled]="loginForm.invalid">Login</button>
+            <button type="submit" class="btn btn-block btn-lg" [disabled]="loginForm.invalid || this.LoginInProgress">
+                <span *ngIf="this.LoginInProgress" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Login
+            </button>
         </div>
     </div>
 </form>

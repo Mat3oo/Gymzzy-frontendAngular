@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt'
 })
 export class AuthService {
   private _accessToken: string = ''
-  private _jwtHelper: JwtHelperService = new JwtHelperService()
+  private readonly _jwtHelper: JwtHelperService = new JwtHelperService()
 
   constructor () { }
 

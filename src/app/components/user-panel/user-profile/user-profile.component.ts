@@ -12,6 +12,8 @@ import { RespondErrorCodes } from 'src/app/common/RespondErrorCodes'
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  public UpdateUserDetailsInProgress: boolean = false
+
   userDetailsForm = this._formBuilder.group({
     Email: [''],
     Name: ['', Validators.required],
@@ -43,6 +45,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit (): void {
+    this.UpdateUserDetailsInProgress = true
+
     this._userService.updateUserDetails({
       name: this.Name?.value,
       lastName: this.LastName?.value,
@@ -51,31 +55,35 @@ export class UserProfileComponent implements OnInit {
       height: this.Height?.value,
       weight: this.Weight?.value,
       birthdate: this.Birthdate?.value
-    }).subscribe(
-      success => {
-        this._toastrService.success('User details updated.', 'Update success')
-      },
-      (err: any) => {
-        if (Array.isArray(err)) {
-          this._toastrService.clear();
-          (err as RespondErrorCodes[]).forEach(element => {
-            switch (element) {
-              case RespondErrorCodes.DuplicatedNick:
-                this._toastrService.error(`Nick: ${this.Nick?.value} is already taken.`, 'Update failed!')
-                break
-              case RespondErrorCodes.InvalidUserName:
-                this._toastrService.error('Nick is invalid, can only contain letters or digits.', 'Update failed!')
-                break
-              default:
-                this._toastrService.error('Unknown error, check inputs and try again.', 'Update failed!')
-                break
-            }
-          })
-        } else {
-          this._toastrService.error('Something goes wrong. Try again later.', 'Error')
+    })
+      .subscribe(
+        success => {
+          this._toastrService.success('User details updated.', 'Update success')
+        },
+        (err: any) => {
+          if (Array.isArray(err)) {
+            this._toastrService.clear();
+            (err as RespondErrorCodes[]).forEach(element => {
+              switch (element) {
+                case RespondErrorCodes.DuplicatedNick:
+                  this._toastrService.error(`Nick: ${this.Nick?.value} is already taken.`, 'Update failed!')
+                  break
+                case RespondErrorCodes.InvalidUserName:
+                  this._toastrService.error('Nick is invalid, can only contain letters or digits.', 'Update failed!')
+                  break
+                default:
+                  this._toastrService.error('Unknown error, check inputs and try again.', 'Update failed!')
+                  break
+              }
+            })
+          } else {
+            this._toastrService.error('Something goes wrong. Try again later.', 'Error')
+          }
         }
-      }
-    )
+      )
+      .add(
+        () => { this.UpdateUserDetailsInProgress = false }
+      )
   }
 
   get Email (): AbstractControl | null { return this.userDetailsForm.get('Email') }

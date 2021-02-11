@@ -78,7 +78,11 @@
 
             <div class="form-group row justify-content-end no-gutters">
                 <button type="submit" class="btn btn-primary"
-                    [disabled]="!userDetailsForm.valid || !inputHeight.checkValidity() || !inputWeight.checkValidity() || !userDetailsForm.dirty">Save</button>
+                    [disabled]="!userDetailsForm.valid || !inputHeight.checkValidity() || !inputWeight.checkValidity() || !userDetailsForm.dirty || this.UpdateUserDetailsInProgress">
+                    <span *ngIf="this.UpdateUserDetailsInProgress" class="spinner-border spinner-border-sm"
+                        role="status" aria-hidden="true"></span>
+                    Save
+                </button>
             </div>
         </form>
     </div>

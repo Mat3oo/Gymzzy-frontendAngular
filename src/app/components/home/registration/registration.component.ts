@@ -15,6 +15,8 @@ import { RegistrationService } from 'src/app/services/registration.service'
   ]
 })
 export class RegistrationComponent implements OnInit {
+  public RegistrationInProgress: boolean = false
+
   registerForm = this._formBuilder.group({
     Nick: ['', Validators.required],
     Email: ['', [Validators.email, Validators.required]],
@@ -42,6 +44,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit () {
+    this.RegistrationInProgress = true
+
     this._registService.registUser({
       email: this.Email?.value,
       userName: this.Nick?.value,
@@ -75,6 +79,9 @@ export class RegistrationComponent implements OnInit {
           this._toastr.error('Something goes wrong. Try again later.', 'Error')
         }
       })
+      .add(
+        () => { this.RegistrationInProgress = false }
+      )
   }
 
   get Email (): AbstractControl | null { return this.registerForm.get('Email') }

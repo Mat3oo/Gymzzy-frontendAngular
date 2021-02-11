@@ -21,6 +21,9 @@ import { OneRepMaxService } from 'src/app/services/one-rep-max.service'
 export class EditTrainingComponent implements OnInit {
   private _id: string
 
+  public EditTrainingInProgress: boolean = false
+  public GetTrainingInProgress: boolean = false
+
   trainingForm = this._formBuilder.group({
     Date: ['', Validators.required],
     Exercises: this._formBuilder.array([])
@@ -28,29 +31,41 @@ export class EditTrainingComponent implements OnInit {
 
   oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula()
 
-  constructor (private _route: ActivatedRoute,
-    private _trainingsService: TrainingsService,
-    private _formBuilder: FormBuilder,
-    private _toastrService: ToastrService,
-    private _oneRepMaxService: OneRepMaxService) {
+  constructor (private readonly _route: ActivatedRoute,
+    private readonly _trainingsService: TrainingsService,
+    private readonly _formBuilder: FormBuilder,
+    private readonly _toastrService: ToastrService,
+    private readonly _oneRepMaxService: OneRepMaxService) {
     this._id = this._route.snapshot.paramMap.get('id') ? this._route.snapshot.paramMap.get('id')! : ''
   }
 
   ngOnInit (): void {
-    this._trainingsService.getTraining(this._id).subscribe(
-      success => {
-        const mappedIntoModel = this.mapTrainingViewDTO(success)
-        this.initializeForm(mappedIntoModel)
-      }
-    )
+    this.GetTrainingInProgress = true
+
+    this._trainingsService.getTraining(this._id)
+      .subscribe(
+        success => {
+          const mappedIntoModel = this.mapTrainingViewDTO(success)
+          this.initializeForm(mappedIntoModel)
+        }
+      )
+      .add(
+        () => { this.GetTrainingInProgress = false }
+      )
   }
 
   onSubmit (): void {
-    this._trainingsService.updateTraining(this.trainingForm.value, this._id).subscribe(
-      success => {
-        this._toastrService.success('Training updated.', 'Training update')
-      }
-    )
+    this.EditTrainingInProgress = true
+
+    this._trainingsService.updateTraining(this.trainingForm.value, this._id)
+      .subscribe(
+        success => {
+          this._toastrService.success('Training updated.', 'Training update')
+        }
+      )
+      .add(
+        () => { this.EditTrainingInProgress = false }
+      )
   }
 
   addExercise (): void {
