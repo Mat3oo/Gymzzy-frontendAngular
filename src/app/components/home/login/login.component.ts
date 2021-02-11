@@ -21,6 +21,8 @@ import { LoginService } from 'src/app/services/login.service'
   ]
 })
 export class LoginComponent implements OnInit {
+  public LoginInProgress: boolean = false
+
   constructor (
     private _loginService: LoginService,
     private _router: Router,
@@ -31,6 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit (form: NgForm): void {
+    this.LoginInProgress = true
+
     this._loginService.loginUser({ email: form.value.Email, password: form.value.Password })
       .subscribe(
         (respone: ITokenDTO) => {
@@ -46,6 +50,9 @@ export class LoginComponent implements OnInit {
               this._toastrService.error('Something goes wrong. Try again later.')
           }
         }
+      )
+      .add(
+        () => { this.LoginInProgress = false }
       )
   }
 }

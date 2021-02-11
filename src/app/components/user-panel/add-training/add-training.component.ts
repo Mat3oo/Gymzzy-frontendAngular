@@ -16,6 +16,8 @@ import { ISeries } from 'src/app/models/ITraining'
   ]
 })
 export class AddTrainingComponent implements OnInit {
+  public AddTrainingInProgress: boolean = false
+
   trainingForm = this._formBuilder.group({
     Exercises: this._formBuilder.array([])
   })
@@ -31,12 +33,18 @@ export class AddTrainingComponent implements OnInit {
   }
 
   onSubmit () {
-    this._trainingsService.addTrainig(this.trainingForm.value).subscribe(
-      success => {
-        this._toastrService.success('The training session has been saved.', 'Training saved')
-        this.Exercises.clear()
-      }
-    )
+    this.AddTrainingInProgress = true
+
+    this._trainingsService.addTrainig(this.trainingForm.value)
+      .subscribe(
+        success => {
+          this._toastrService.success('The training session has been saved.', 'Training saved')
+          this.Exercises.clear()
+        }
+      )
+      .add(
+        () => { this.AddTrainingInProgress = false }
+      )
   }
 
   addExercise () {

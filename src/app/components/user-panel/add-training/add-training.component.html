@@ -44,7 +44,11 @@
         </div>
         <div>
             <button type="submit" class="btn btn-primary btn-block"
-                [disabled]="trainingForm.invalid || Exercises.length < 1">Save training</button>
+                [disabled]="trainingForm.invalid || Exercises.length < 1 || this.AddTrainingInProgress">
+                <span *ngIf="this.AddTrainingInProgress" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Save training
+            </button>
         </div>
     </form>
 </div>

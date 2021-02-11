@@ -9,16 +9,26 @@ import { TrainingsService } from 'src/app/services/trainings.service'
   styleUrls: ['./training-history.component.css']
 })
 export class TrainingHistoryComponent implements OnInit {
+  public HistoryInProgress: boolean = false
+
   trainings: ITrainingSimpleViewDTO[] = []
 
   constructor (private readonly _trainingService: TrainingsService) { }
 
   ngOnInit (): void {
-    this._trainingService.getAllTrainings().subscribe(
-      respond => {
-        this.trainings = respond
-      }
-    )
+    this.HistoryInProgress = true
+
+    this._trainingService.getAllTrainings()
+      .subscribe(
+        respond => {
+          this.trainings = respond
+        }
+      )
+      .add(
+        () => {
+          this.HistoryInProgress = false
+        }
+      )
   }
 
   thrash (id: string): void {
