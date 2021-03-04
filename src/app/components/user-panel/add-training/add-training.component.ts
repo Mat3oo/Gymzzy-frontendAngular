@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr'
 
 import { TrainingsService } from 'src/app/services/trainings.service'
 import { OneRepMaxService } from 'src/app/services/one-rep-max.service'
-import { ISeries } from 'src/app/models/ITraining'
+import { ISet } from 'src/app/models/ITraining'
 
 @Component({
   selector: 'app-add-training',
@@ -22,7 +22,7 @@ export class AddTrainingComponent implements OnInit {
     Exercises: this._formBuilder.array([])
   })
 
-  oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula()
+  oneRM: (sets: ISet[]) => number | null = this._oneRepMaxService.oneRepMaxFormula()
 
   constructor (private _formBuilder: FormBuilder,
     private _trainingsService: TrainingsService,
@@ -50,33 +50,33 @@ export class AddTrainingComponent implements OnInit {
   addExercise () {
     this.Exercises.push(this._formBuilder.group({
       Name: ['', Validators.required],
-      Series: this._formBuilder.array([])
+      Sets: this._formBuilder.array([])
     }))
 
-    this.addSeries(this.Exercises.length - 1)
+    this.addSet(this.Exercises.length - 1)
   }
 
   removeExercise (exerciseIndex: number) {
     this.Exercises.removeAt(exerciseIndex)
   }
 
-  addSeries (exerciseIndex: number) {
-    this.getExerciseSeries(exerciseIndex).push(
+  addSet (exerciseIndex: number) {
+    this.getExerciseSets(exerciseIndex).push(
       this._formBuilder.group({
         Weight: ['', Validators.required],
         Reps: ['', Validators.required]
       }))
   }
 
-  removeSeries (exerciseIndex: number, seriesIndex: number) {
-    this.getExerciseSeries(exerciseIndex).removeAt(seriesIndex)
+  removeSet (exerciseIndex: number, setIndex: number) {
+    this.getExerciseSets(exerciseIndex).removeAt(setIndex)
 
-    if (this.getExerciseSeries(exerciseIndex).length < 1) {
+    if (this.getExerciseSets(exerciseIndex).length < 1) {
       this.removeExercise(exerciseIndex)
     }
   }
 
   public get Exercises (): FormArray { return this.trainingForm.get('Exercises') as FormArray }
 
-  public getExerciseSeries (exerciseIndex: number): FormArray { return this.Exercises.at(exerciseIndex).get('Series') as FormArray }
+  public getExerciseSets (exerciseIndex: number): FormArray { return this.Exercises.at(exerciseIndex).get('Sets') as FormArray }
 }
