@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
     Nick: ['', Validators.required],
     Email: ['', [Validators.email, Validators.required]],
     Passwords: this._formBuilder.group({
-      Password: ['', [Validators.required, Validators.minLength(4)]],
+      Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['', Validators.required]
     }, { validators: this.comparePasswords })
   });

@@ -1,29 +1,29 @@
-export class TrainingCreateExerciseDTO {
-    Name: string
+export class TrainingCreateSetDTO {
+  Reps: number
+  Weight: number
 
-    constructor (name: string) {
-      this.Name = name
-    }
+  constructor (reps: number, weight: number) {
+    this.Reps = reps
+    this.Weight = weight
+  }
 }
 
-export class TrainingCreateSeriesDTO {
-    Reps: number
-    Weight: number
-    Exercise: TrainingCreateExerciseDTO
+export class TrainingCreateExerciseDTO {
+  Name: string
+  Sets: TrainingCreateSetDTO[]
 
-    constructor (reps: number, weight: number, exerciseName: string) {
-      this.Reps = reps
-      this.Weight = weight
-      this.Exercise = new TrainingCreateExerciseDTO(exerciseName)
-    }
+  constructor (name: string) {
+    this.Name = name
+    this.Sets = []
+  }
 }
 
 export class TrainingCreateDTO {
-    Date: string
-    Series?: TrainingCreateSeriesDTO[]
+  Date: string
+  Exercises: TrainingCreateExerciseDTO[]
 
-    constructor (date: string) {
-      this.Date = date
-      this.Series = []
-    }
+  constructor (date: string) {
+    this.Date = date
+    this.Exercises = []
+  }
 }

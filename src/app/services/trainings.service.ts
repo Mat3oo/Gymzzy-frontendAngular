@@ -5,10 +5,10 @@ import { concatMap, delay, retryWhen } from 'rxjs/operators'
 
 import { GlobalConstans } from '../common/global-constans'
 import { ITraining } from '../models/ITraining'
-import { TrainingCreateDTO, TrainingCreateSeriesDTO } from '../models/DTO/TrainingCreateDTO'
+import { TrainingCreateDTO, TrainingCreateExerciseDTO, TrainingCreateSetDTO } from '../models/DTO/TrainingCreateDTO'
 import { ITrainingSimpleViewDTO } from '../models/DTO/ServerResponses/ITrainingSimpleViewDTO'
 import { ITrainingViewDTO } from '../models/DTO/ServerResponses/ITrainingViewDTO'
-import { TrainingEditDTO, TrainingEditSeriesDTO } from '../models/DTO/TrainingEditDTO'
+import { TrainingEditDTO, TrainingEditExerciseDTO, TrainingEditSetDTO } from '../models/DTO/TrainingEditDTO'
 
 @Injectable({
   providedIn: 'root'
@@ -61,9 +61,11 @@ export class TrainingsService {
   public addTrainig (trainingModel: ITraining) {
     const training = new TrainingCreateDTO(new Date().toISOString())
 
-    trainingModel.Exercises?.forEach(elementExercise => {
-      elementExercise.Series?.forEach(elementSeries => {
-        training.Series?.push(new TrainingCreateSeriesDTO(elementSeries.Reps, elementSeries.Weight, elementExercise.Name))
+    trainingModel.Exercises?.forEach((elementExercise, indexExercise: number) => {
+      training.Exercises.push(new TrainingCreateExerciseDTO(elementExercise.Name))
+
+      elementExercise.Sets?.forEach(elementSet => {
+        training.Exercises[indexExercise].Sets.push(new TrainingCreateSetDTO(elementSet.Reps, elementSet.Weight))
       })
     })
 
@@ -88,9 +90,11 @@ export class TrainingsService {
   public updateTraining (trainingModel: ITraining, id: string): Observable<any> {
     const training = new TrainingEditDTO(trainingModel.Date)
 
-    trainingModel.Exercises?.forEach(elementExercise => {
-      elementExercise.Series?.forEach(elementSeries => {
-        training.Series?.push(new TrainingEditSeriesDTO(elementSeries.Reps, elementSeries.Weight, elementExercise.Name))
+    trainingModel.Exercises?.forEach((elementExercise, indexExercise: number) => {
+      training.Exercises.push(new TrainingEditExerciseDTO(elementExercise.Name))
+
+      elementExercise.Sets?.forEach(elementSet => {
+        training.Exercises[indexExercise].Sets.push(new TrainingEditSetDTO(elementSet.Reps, elementSet.Weight))
       })
     })
 

@@ -9,7 +9,7 @@
   font-size: 1.9rem;
 }
 
-.series-level {
+.set-level {
   font-size: 1.4rem;
 }
 
@@ -24,7 +24,7 @@ button.fontawe-icon {
   font-size: 2rem;
 }
 
-.fontawe-icon-series:hover:enabled {
+.fontawe-icon-set:hover:enabled {
   font-size: 1.5rem;
 }
 
@@ -50,7 +50,7 @@ input.input-underlined.ng-touched:invalid {
   border-bottom: 1px solid red;
 }
 
-.series-row {
+.set-row {
   align-items: center;
 }
 

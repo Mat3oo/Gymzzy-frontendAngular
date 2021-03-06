@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 
 import { ITrainingViewDTO } from 'src/app/models/DTO/ServerResponses/ITrainingViewDTO'
-import { IExercise, ISeries, ITraining } from 'src/app/models/ITraining'
+import { IExercise, ISet, ITraining } from 'src/app/models/ITraining'
 
 import { TrainingsService } from 'src/app/services/trainings.service'
 import { OneRepMaxService } from 'src/app/services/one-rep-max.service'
@@ -29,7 +29,7 @@ export class EditTrainingComponent implements OnInit {
     Exercises: this._formBuilder.array([])
   })
 
-  oneRM: (series: ISeries[]) => number | null = this._oneRepMaxService.oneRepMaxFormula()
+  oneRM: (sets: ISet[]) => number | null = this._oneRepMaxService.oneRepMaxFormula()
 
   constructor (private readonly _route: ActivatedRoute,
     private readonly _trainingsService: TrainingsService,
@@ -71,28 +71,28 @@ export class EditTrainingComponent implements OnInit {
   addExercise (): void {
     this.Exercises.push(this._formBuilder.group({
       Name: ['', Validators.required],
-      Series: this._formBuilder.array([])
+      Sets: this._formBuilder.array([])
     }))
 
-    this.addSeries(this.Exercises.length - 1)
+    this.addSet(this.Exercises.length - 1)
   }
 
   removeExercise (exerciseIndex: number): void {
     this.Exercises.removeAt(exerciseIndex)
   }
 
-  addSeries (exerciseIndex: number): void {
-    this.getExerciseSeries(exerciseIndex).push(
+  addSet (exerciseIndex: number): void {
+    this.getExerciseSets(exerciseIndex).push(
       this._formBuilder.group({
         Weight: ['', Validators.required],
         Reps: ['', Validators.required]
       }))
   }
 
-  removeSeries (exerciseIndex: number, seriesIndex: number): void {
-    this.getExerciseSeries(exerciseIndex).removeAt(seriesIndex)
+  removeSet (exerciseIndex: number, setIndex: number): void {
+    this.getExerciseSets(exerciseIndex).removeAt(setIndex)
 
-    if (this.getExerciseSeries(exerciseIndex).length < 1) {
+    if (this.getExerciseSets(exerciseIndex).length < 1) {
       this.removeExercise(exerciseIndex)
     }
   }
@@ -100,7 +100,7 @@ export class EditTrainingComponent implements OnInit {
   public get Exercises (): FormArray { return this.trainingForm.get('Exercises') as FormArray }
   public get TrainingDate (): AbstractControl | null { return this.trainingForm.get('Date') }
 
-  public getExerciseSeries (exerciseIndex: number): FormArray { return this.Exercises.at(exerciseIndex).get('Series') as FormArray }
+  public getExerciseSets (exerciseIndex: number): FormArray { return this.Exercises.at(exerciseIndex).get('Sets') as FormArray }
 
   private initializeForm (model: ITraining): void {
     this.TrainingDate?.setValue(model.Date)
@@ -113,37 +113,33 @@ export class EditTrainingComponent implements OnInit {
   private initializeFormExercise (exercise: IExercise): void {
     this.Exercises.push(this._formBuilder.group({
       Name: [exercise.Name, Validators.required],
-      Series: this.initializeFormExerciseSeries(exercise.Series!)
+      Sets: this.initializeFormExerciseSets(exercise.Sets!)
     }))
   }
 
-  private initializeFormExerciseSeries (series: ISeries[]): FormArray {
-    const seriesFormArray = this._formBuilder.array([])
+  private initializeFormExerciseSets (sets: ISet[]): FormArray {
+    const setsFormArray = this._formBuilder.array([])
 
-    series.forEach(value => {
-      seriesFormArray.push(this._formBuilder.group({
+    sets.forEach(value => {
+      setsFormArray.push(this._formBuilder.group({
         Weight: [value.Weight, Validators.required],
         Reps: [value.Reps, Validators.required],
         Record: [value.Record]
       }))
     })
 
-    return seriesFormArray
+    return setsFormArray
   }
 
   private mapTrainingViewDTO (trainingViewDTO: ITrainingViewDTO): ITraining {
     const trainingModel: ITraining = { Date: trainingViewDTO.date, Exercises: [] }
 
-    trainingViewDTO.series.forEach(element => {
-      if (!trainingModel.Exercises?.some(value => {
-        return value.Name === element.exercise.name
-      })) {
-        trainingModel.Exercises?.push({ Name: element.exercise.name, Series: [] })
-      }
+    trainingViewDTO.exercises.forEach((elementExercise, indexExercise) => {
+      trainingModel.Exercises!.push({ Name: elementExercise.name, Sets: [] })
 
-      trainingModel.Exercises?.find(value => {
-        return value.Name === element.exercise.name
-      })?.Series?.push({ Reps: element.reps, Weight: element.weight, Record: element.record })
+      elementExercise.sets?.forEach(elementSet => {
+        trainingModel.Exercises![indexExercise].Sets!.push({ Reps: elementSet.reps, Weight: elementSet.weight, Record: elementSet.record })
+      })
     })
 
     return trainingModel

@@ -1,18 +1,18 @@
-export interface ITrainingViewExerciseDTO {
-    id: string
-    name: string
-}
-
-export interface ITrainingViewSeriesDTO {
+export interface ITrainingViewSetDTO {
     id: string
     reps: number
     weight: number
     record: boolean
-    exercise: ITrainingViewExerciseDTO
+}
+
+export interface ITrainingViewExerciseDTO {
+    id: string
+    name: string
+    sets?: ITrainingViewSetDTO[]
 }
 
 export interface ITrainingViewDTO {
     id: string
     date: string
-    series: ITrainingViewSeriesDTO[]
+    exercises: ITrainingViewExerciseDTO[]
 }

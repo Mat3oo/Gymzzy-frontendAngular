@@ -1,4 +1,5 @@
 <form #loginForm='ngForm' class="mb-4" (ngSubmit)="onSubmit(loginForm)">
+
     <div class="form-group">
         <label class="descriptive-label">Email</label>
         <input class="form-control" #Email="ngModel" name="Email" ngModel required email>
@@ -7,14 +8,14 @@
         <label class="text-danger" *ngIf="Email.errors?.email && (Email.touched || Email.dirty)">Invalid email
             format.</label>
     </div>
+
     <div class="form-group">
         <label class="descriptive-label">Password</label>
-        <input type="password" class="form-control" #Password="ngModel" name="Password" ngModel required minlength="4">
+        <input type="password" class="form-control" #Password="ngModel" name="Password" ngModel required>
         <label class="text-danger" *ngIf="Password.errors?.required && (Password.touched || Password.dirty)">This
             field is mandatory.</label>
-        <label class="text-danger" *ngIf="Password.errors?.minlength && (Password.touched || Password.dirty)">Minimum
-            length is {{Password.errors?.minlength.requiredLength}}</label>
     </div>
+
     <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">
             <button type="submit" class="btn btn-block btn-lg" [disabled]="loginForm.invalid || this.LoginInProgress">
@@ -24,4 +25,5 @@
             </button>
         </div>
     </div>
+
 </form>

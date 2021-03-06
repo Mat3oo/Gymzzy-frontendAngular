@@ -1,4 +1,4 @@
-export interface ISeries{
+export interface ISet{
     Reps: number
     Weight: number
     Record: boolean
@@ -6,7 +6,7 @@ export interface ISeries{
 
 export interface IExercise{
     Name: string,
-    Series?: ISeries[]
+    Sets?: ISet[]
 }
 
 export interface ITraining{
