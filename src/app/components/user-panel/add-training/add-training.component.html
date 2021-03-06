@@ -9,11 +9,11 @@
                         </span>
                         <input class="form-control input-underlined col" placeholder="Exercise name"
                             formControlName="Name" required>
-                        <button class="fas fa-minus fontawe-icon series-level" type="button"
+                        <button class="fas fa-minus fontawe-icon set-level" type="button"
                             (click)="removeExercise(exerciseIndex)"></button>
                     </div>
                 </div>
-                <div class="form-row series-row"
+                <div class="form-row set-row"
                     *ngFor="let set of getExerciseSets(exerciseIndex).controls; let setIndex = index"
                     formArrayName="Sets">
                     <span class="align-bottom index-label">{{setIndex + 1}}.</span>
@@ -27,13 +27,13 @@
                                 placeholder="Reps" formControlName="Reps" required>
                         </div>
                     </ng-container>
-                    <button class="fas fa-minus-circle fontawe-icon series-level" type="button"
+                    <button class="fas fa-minus-circle fontawe-icon set-level" type="button"
                         (click)="removeSet(exerciseIndex, setIndex)"></button>
                 </div>
                 <div>
-                    <button class="fas fa-plus-circle fontawe-icon fontawe-icon-series series-level" type="button"
+                    <button class="fas fa-plus-circle fontawe-icon fontawe-icon-set set-level" type="button"
                         (click)="addSet(exerciseIndex)"></button>
-                    <span class="series-level">Set</span>
+                    <span class="set-level">Set</span>
                 </div>
             </ng-container>
         </ng-container>
